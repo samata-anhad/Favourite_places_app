@@ -1,15 +1,17 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'dart:io';
 import 'package:favourite_place_app/models/place_model.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
-class UserPlacesNotifyer extends StateNotifier<List<Place>> {
-  UserPlacesNotifyer() : super(const []);
+class UserPlacesNotifier extends StateNotifier<List<Place>> {
+  UserPlacesNotifier() : super(const []);
 
-  void addPlace(String title) {
-    final newPlace = Place(title: title);
+  void addPlace(String title, File image) {
+    final newPlace = Place(title: title, image: image);
     state = [newPlace, ...state];
   }
 }
 
-final userPlacesProvider = StateNotifierProvider(
-  (ref) => UserPlacesNotifyer(),
-  );
+final userPlacesProvider =
+    StateNotifierProvider<UserPlacesNotifier, List<Place>>(
+  (ref) => UserPlacesNotifier(),
+);
